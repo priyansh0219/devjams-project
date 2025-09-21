@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import APIClient from "../../services/api-client";
 import { useAuth } from "../../providers/AuthProvider";
@@ -26,6 +26,7 @@ interface MyClubsResponse {
 
 const MyClubs = () => {
   const { signOut } = useAuth();
+  const navigate = useNavigate();
 
   const clubsClient = new APIClient<MyClubsResponse>("my-clubs", {
     withCredentials: true,
@@ -97,14 +98,20 @@ const MyClubs = () => {
         {clubs.map((membership) => (
           <div
             key={membership.club.id}
-            className='bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow'
+            onClick={() => navigate({ to: `/myclubs/${membership.club.name}` })}
+            className='bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow cursor-pointer hover:bg-gray-50'
           >
             <h2 className='text-xl font-semibold mb-3'>
               {membership.club.name}
             </h2>
             <p className='text-gray-600 mb-4'>{membership.club.description}</p>
             <div className='text-sm text-gray-500 mb-2'>
-              Role: <span className='font-medium'>{membership.role}</span>
+              Role:{" "}
+              <span className='font-medium'>
+                {membership.role
+                  .replace(/_/g, " ")
+                  .replace(/\b\w/g, (l) => l.toUpperCase())}
+              </span>
             </div>
             <div className='text-sm text-gray-500'>
               Joined: {new Date(membership.joinedAt).toLocaleDateString()}

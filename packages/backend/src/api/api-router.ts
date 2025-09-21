@@ -4,6 +4,7 @@ import authMiddleware from "./auth-middleware";
 import adminRouter from "./admin/admin-router";
 import myClubsRouter from "./my-clubs";
 import walletRouter from "./wallet";
+import clubRouter from "./club";
 
 const apiRouter = express.Router();
 
@@ -13,5 +14,6 @@ apiRouter.use("/auth", authRouter);
 apiRouter.use("/admin", adminRouter);
 apiRouter.use("/my-clubs", myClubsRouter);
 apiRouter.use("/wallet", walletRouter);
+apiRouter.use("/club", clubRouter);
 
 export default apiRouter;
