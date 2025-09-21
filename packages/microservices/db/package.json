@@ -1,0 +1,10 @@
+{
+  "name": "db",
+  "private": true,
+  "scripts": {
+    "prerun": "docker pull postgres:latest",
+    "dev": "docker run --restart=unless-stopped -d -e POSTGRES_PASSWORD=postgres -p 5432:5432 -v nano-pg-db-vol:/var/lib/postgresql/data --name nano-pg-db postgres:latest || docker start nano-pg-db",
+    "reset": "docker kill nano-pg-db; docker rm nano-pg-db; docker volume rm nano-pg-db-vol",
+    "kill": "docker kill nano-pg-db"
+  }
+}

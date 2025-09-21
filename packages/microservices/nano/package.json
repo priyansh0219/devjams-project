@@ -1,0 +1,10 @@
+{
+  "name": "nano",
+  "private": true,
+  "scripts": {
+    "prerun": "docker pull nanocurrency/nano-test:latest",
+    "dev": "docker run --restart=unless-stopped -d -p 17075:17075 -p 127.0.0.1:17076:17076 -p 127.0.0.1:17078:17078 -v nano-vol:/root --name nano-test-cont nanocurrency/nano-test:latest || docker start nano-test-cont",
+    "reset": "docker kill nano-test-cont; docker rm nano-test-cont; docker volume rm nano-vol",
+    "kill": "docker kill nano-test-cont"
+  }
+}
