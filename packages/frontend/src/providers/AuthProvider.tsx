@@ -3,7 +3,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import ms from "ms";
 import AuthAPIClient from "../services/auth-api-client";
-import useCookies from "../hooks/useCookies";
+import { useCookies } from "react-cookie";
 
 interface ContextProps {
   signIn: () => Promise<void>;
@@ -47,14 +47,18 @@ const AuthProvider = ({ children }: Props) => {
   const [loading, setLoading] = useState(true);
 
   // TODO: make sure these two cookie names are correct.
+  const [cookies, _setCookies, _removeCookies] = useCookies([
+    "authjs.csrf-token",
+    "authjs.session-token",
+  ]);
   const { data: csrfData, isLoading: csrfLoading } = useQuery({
-    queryKey: ["auth_csrfToken", useCookies("authjs.csrf-token")],
+    queryKey: ["auth_csrfToken", cookies["authjs.csrf-token"]],
     queryFn: csrfClient.get,
     staleTime: ms("24h"),
   });
 
   const { data: sessionData, isLoading: sessionLoading } = useQuery({
-    queryKey: ["auth_session", useCookies("authjs.session-token")],
+    queryKey: ["auth_session", cookies["authjs.session-token"]],
     queryFn: sessionClient.get,
   });
 
@@ -76,7 +80,7 @@ const AuthProvider = ({ children }: Props) => {
     let tokenToUse = csrfToken;
 
     // Check if CSRF token cookie exists, if not fetch it
-    if (!useCookies("authjs.csrf-token")) {
+    if (!cookies["authjs.csrf-token"]) {
       const csrfResponse = await csrfClient.get();
       tokenToUse = csrfResponse?.csrfToken || "";
     }
@@ -96,7 +100,7 @@ const AuthProvider = ({ children }: Props) => {
     signOut: signOut,
     session: session,
     loading: loading,
-    isAuthenticated: isAuthenticated
+    isAuthenticated: isAuthenticated,
   };
 
   return (
