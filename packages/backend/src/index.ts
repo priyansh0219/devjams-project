@@ -21,11 +21,11 @@ app.get("/health", (_req, res) => {
   res.status(200).json({ status: "ok" });
 });
 
+app.use("/api", apiRouter);
+
 app.get("/", (_req, res) => {
   res.send("Hello from Club Expense Tracker backend!");
 });
-
-app.use("/api", apiRouter);
 
 // ================================= KEEP LAST =================================
 // 404 handler

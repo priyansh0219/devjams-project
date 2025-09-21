@@ -9,13 +9,15 @@
   },
   "dependencies": {
     "@auth/express": "^0.11.0",
+    "@prisma/client": "^6.16.2",
     "cors": "^2.8.5",
     "express": "^4.21.2"
   },
   "devDependencies": {
     "@types/bun": "latest",
     "@types/cors": "^2.8.19",
-    "@types/express": "^4.17.21"
+    "@types/express": "^4.17.21",
+    "prisma": "^6.16.2"
   },
   "peerDependencies": {
     "typescript": "^5"

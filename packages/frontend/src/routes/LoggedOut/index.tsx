@@ -1,25 +1,14 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useEffect } from "react";
 
 const LoggedOut = () => {
   const navigate = useNavigate();
 
-  const handleClick = () => {
-    navigate({
-      to: "/",
-    });
-  };
+  useEffect(() => {
+    navigate({ to: "/" });
+  }, [navigate]);
 
-  return (
-    <>
-      <p>You have successfully logged out.</p>
-      <button
-        className='mt-4 ml-2 py-2 px-4 bg-blue-500 rounded-md text-white font-medium cursor-pointer'
-        onClick={handleClick}
-      >
-        Go Home
-      </button>
-    </>
-  );
+  return null; // Empty page while redirecting
 };
 
 export const Route = createFileRoute("/LoggedOut/")({

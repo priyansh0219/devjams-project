@@ -3,32 +3,20 @@ import { useEffect } from "react";
 import { useAuth } from "../../providers/AuthProvider";
 
 const LoggedIn = () => {
-  const { session, isAuthenticated, loading, signOut } = useAuth();
+  const { isAuthenticated, loading } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isAuthenticated && !loading) {
-      navigate({ to: "/" });
-      return;
+    if (!loading) {
+      if (isAuthenticated) {
+        navigate({ to: "/myclubs" });
+      } else {
+        navigate({ to: "/" });
+      }
     }
-  }, [isAuthenticated, navigate, loading, session]);
+  }, [isAuthenticated, navigate, loading]);
 
-  if (!isAuthenticated) {
-    return null; // Prevent flash while redirecting
-  }
-
-  return (
-    <div>
-      <h1>Logged In - Session Data</h1>
-      <pre>{JSON.stringify(session, null, 2)}</pre>
-      <button
-        className='mt-4 ml-2 py-2 px-4 bg-red-500 rounded-md font-medium text-white cursor-pointer'
-        onClick={() => signOut()}
-      >
-        Sign Out
-      </button>
-    </div>
-  );
+  return null; // Empty page while redirecting
 };
 
 export const Route = createFileRoute("/LoggedIn/")({
