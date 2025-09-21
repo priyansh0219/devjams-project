@@ -7,6 +7,7 @@ import AuthProvider from "./providers/AuthProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { CookiesProvider } from "react-cookie";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import WalletProvider from "./providers/WalletProvider";
 
 const queryClient = new QueryClient();
 
@@ -28,8 +29,10 @@ createRoot(document.getElementById("root")!).render(
     <QueryClientProvider client={queryClient}>
       <CookiesProvider>
         <AuthProvider>
-          <RouterProvider router={router} />
-          <ReactQueryDevtools />
+          <WalletProvider>
+            <RouterProvider router={router} />
+            <ReactQueryDevtools />
+          </WalletProvider>
         </AuthProvider>
       </CookiesProvider>
     </QueryClientProvider>

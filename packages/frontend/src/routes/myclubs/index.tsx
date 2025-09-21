@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import APIClient from "../../services/api-client";
 import { useAuth } from "../../providers/AuthProvider";
+import { useWallet } from "../../providers/WalletProvider";
+import { useEffect } from "react";
 
 interface Club {
   id: string;

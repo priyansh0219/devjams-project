@@ -9,7 +9,7 @@ const LoggedIn = () => {
   useEffect(() => {
     if (!loading) {
       if (isAuthenticated) {
-        navigate({ to: "/myclubs" });
+        navigate({ to: "/wallet" });
       } else {
         navigate({ to: "/" });
       }
