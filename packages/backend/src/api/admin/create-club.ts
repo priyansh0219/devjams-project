@@ -4,6 +4,16 @@ import { PrismaClient } from "../../generated/prisma";
 const createClubRouter = Router();
 const prisma = new PrismaClient();
 
+function createSlug(name: string): string {
+  return name
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
 // POST /api/admin/create-club
 createClubRouter.post("/", async (req, res) => {
   try {
@@ -17,14 +27,16 @@ createClubRouter.post("/", async (req, res) => {
       });
     }
 
-    // Check if club already exists
-    const existingClub = await prisma.club.findFirst({
-      where: { name: club_name },
+    const slug = createSlug(club_name);
+
+    // Check if slug already exists
+    const existingClub = await prisma.club.findUnique({
+      where: { slug },
     });
 
     if (existingClub) {
-      return res.status(409).json({
-        error: "Club with this name already exists",
+      return res.status(400).json({
+        error: "A club with this name already exists",
       });
     }
 
@@ -42,6 +54,7 @@ createClubRouter.post("/", async (req, res) => {
     const newClub = await prisma.club.create({
       data: {
         name: club_name,
+        slug,
         description: club_description,
       },
     });
@@ -50,7 +63,7 @@ createClubRouter.post("/", async (req, res) => {
     await prisma.clubMembership.create({
       data: {
         userEmail: clubAdmin.email,
-        clubId: newClub.id,
+        clubSlug: newClub.slug,
         clubRole: "CLUB_ADMIN",
       },
     });

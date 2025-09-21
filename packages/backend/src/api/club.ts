@@ -9,24 +9,24 @@ const prisma = new PrismaClient();
 
 clubRouter.use(authMiddleware);
 
-clubRouter.get("/:clubname", async (_req, res) => {
+clubRouter.get("/:slug", async (_req, res) => {
   try {
-    const { clubname } = _req.params;
+    const { slug } = _req.params;
     const session = await getSession(_req, authConfig);
 
     if (!session?.user?.email) {
       return res.status(401).json({ error: "User not authenticated" });
     }
 
-    if (!clubname) {
-      return res.status(400).json({ error: "Club name is required" });
+    if (!slug) {
+      return res.status(400).json({ error: "Club slug is required" });
     }
 
     // Check if user is a member of the club
     const membership = await prisma.clubMembership.findFirst({
       where: {
         club: {
-          name: clubname,
+          slug,
         },
         user: {
           email: session.user.email,
@@ -45,7 +45,7 @@ clubRouter.get("/:clubname", async (_req, res) => {
     // Get club details
     const clubDetails = await prisma.club.findFirst({
       where: {
-        name: clubname,
+        slug,
       },
     });
 
@@ -56,7 +56,7 @@ clubRouter.get("/:clubname", async (_req, res) => {
     // Get admin memberships for this club
     const adminMemberships = await prisma.clubMembership.findMany({
       where: {
-        clubId: clubDetails.id,
+        clubSlug: clubDetails.slug,
         clubRole: ClubRole.CLUB_ADMIN,
       },
     });

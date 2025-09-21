@@ -22,7 +22,7 @@ myClubsRouter.get("/", async (req, res) => {
       include: {
         club: {
           select: {
-            id: true,
+            slug: true,
             name: true,
             description: true,
             createdAt: true,

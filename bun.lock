@@ -9,6 +9,7 @@
       "dependencies": {
         "@auth/express": "^0.11.0",
         "@prisma/client": "^6.16.2",
+        "axios": "^1.12.2",
         "cors": "^2.8.5",
         "express": "^4.21.2",
       },
@@ -23,7 +24,7 @@
       },
     },
     "packages/backend/src/generated/prisma": {
-      "name": "prisma-client-72ee096e9c95a79360a0114ad27f644dd27b3c181422e0953ff1dcbc5592ef95",
+      "name": "prisma-client-6c0972b78f865649fde9e1615e9ae9eaae60b650c4cf779fbee51cc464be1a6a",
       "version": "6.16.2",
     },
     "packages/frontend": {
@@ -836,7 +837,7 @@
 
     "prisma": ["prisma@6.16.2", "", { "dependencies": { "@prisma/config": "6.16.2", "@prisma/engines": "6.16.2" }, "peerDependencies": { "typescript": ">=5.1.0" }, "optionalPeers": ["typescript"], "bin": { "prisma": "build/index.js" } }, "sha512-aRvldGE5UUJTtVmFiH3WfNFNiqFlAtePUxcI0UEGlnXCX7DqhiMT5TRYwncHFeA/Reca5W6ToXXyCMTeFPdSXA=="],
 
-    "prisma-client-72ee096e9c95a79360a0114ad27f644dd27b3c181422e0953ff1dcbc5592ef95": ["prisma-client-72ee096e9c95a79360a0114ad27f644dd27b3c181422e0953ff1dcbc5592ef95@workspace:packages/backend/src/generated/prisma"],
+    "prisma-client-6c0972b78f865649fde9e1615e9ae9eaae60b650c4cf779fbee51cc464be1a6a": ["prisma-client-6c0972b78f865649fde9e1615e9ae9eaae60b650c4cf779fbee51cc464be1a6a@workspace:packages/backend/src/generated/prisma"],
 
     "proxy-addr": ["proxy-addr@2.0.7", "", { "dependencies": { "forwarded": "0.2.0", "ipaddr.js": "1.9.1" } }, "sha512-llQsMLSUDUPT44jdrU/O37qlnifitDP+ZwrmmZcoSKyLKvtZxpyV0n2/bD/N4tBAAZ/gJEdZU7KMraoK1+XYAg=="],
 

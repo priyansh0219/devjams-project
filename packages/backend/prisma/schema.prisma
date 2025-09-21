@@ -37,8 +37,8 @@ model User {
 }
 
 model Club {
-  id          String   @id @default(cuid())
   name        String
+  slug        String   @id @unique
   description String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -49,14 +49,14 @@ model Club {
 model ClubMembership {
   id        String   @id @default(cuid())
   userEmail String
-  clubId    String
+  clubSlug  String
   clubRole  ClubRole @default(CLUB_MEMBER)
   createdAt DateTime @default(now())
 
   user User @relation(fields: [userEmail], references: [email])
-  club Club @relation(fields: [clubId], references: [id])
+  club Club @relation(fields: [clubSlug], references: [slug])
 
-  @@unique([userEmail, clubId])
+  @@unique([userEmail, clubSlug])
 }
 
 model Wallet {

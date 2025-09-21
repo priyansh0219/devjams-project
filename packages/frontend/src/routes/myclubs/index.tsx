@@ -6,7 +6,7 @@ import { useWallet } from "../../providers/WalletProvider";
 import { useEffect } from "react";
 
 interface Club {
-  id: string;
+  slug: string;
   name: string;
   description: string;
   createdAt: string;
@@ -194,9 +194,9 @@ const MyClubs = () => {
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
           {clubs.map((membership) => (
             <div
-              key={membership.club.id}
+              key={membership.club.slug}
               onClick={() =>
-                navigate({ to: `/myclubs/${membership.club.name}` })
+                navigate({ to: `/myclubs/${membership.club.slug}` })
               }
               className='bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 cursor-pointer hover:scale-105 group'
             >
