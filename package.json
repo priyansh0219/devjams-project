@@ -1,0 +1,7 @@
+{
+  "name": "devjams-project",
+  "private": true,
+  "workspaces": [
+    "packages/**"
+  ]
+}
